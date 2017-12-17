@@ -3,7 +3,7 @@
     <h3>Candidatos <small>Editar candidato {{ data.first_name }}</small></h3>
 
     <b-col cols="6">
-      <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+      <b-form @submit="onSubmit">
         <b-form-group id="first_name" label="Nome:" label-for="first_name"
           description="">
 
@@ -53,17 +53,16 @@
 
         <b-form-file id="curriculum_vitae" v-model="data.curriculum_vitae"
           choose-label="Currículo"></b-form-file>
-          <br> Currículo selecionado: {{data.curriculum_vitae && data.curriculum_vitae.name}}<br><br>
 
+        <b-button variant="link"
+          :to="{name: 'candidate.index' }">Voltar</b-button>
         <b-button type="submit" variant="primary">Enviar</b-button>
-        <b-button type="reset" variant="danger">Apagar</b-button>
       </b-form>
     </b-col>
   </div>
 </template>
 
 <script>
-  import Gender from '@/components/helpers/gender'
   import {API_URL} from '@/env'
 
   export default {
@@ -71,6 +70,7 @@
     data () {
       return {
         data: {
+          id: null,
           first_name: '',
           last_name: '',
           email: '',
@@ -83,9 +83,13 @@
           { value: '', text: 'Selecione' },
           { value: 'male', text: 'Masculino' },
           { value: 'female', text: 'Feminino' }
-        ],
-        show: true
+        ]
       }
+    },
+
+    created () {
+      this.data.id = this.$route.params.id
+      this.getData()
     },
 
     methods: {
@@ -94,11 +98,15 @@
 
         let formData = new FormData()
 
+        console.log(this.data)
+
         for (let key in this.data) {
           formData.append(key, this.data[key])
         }
 
-        this.$http.post(API_URL + '/candidates', formData)
+        console.log(formData)
+
+        this.$http.put(API_URL + '/candidates/' + this.data.id, formData)
           .then(response => {
 
           }).catch(response => {
@@ -106,18 +114,13 @@
           })
       },
 
-      onReset (evt) {
-        evt.preventDefault()
+      getData () {
+        this.$http.get(API_URL + '/candidates/' + this.data.id)
+          .then(response => {
+            this.data = response.body
+          }).catch(response => {
 
-        this.data.first_name = ''
-        this.data.last_name = ''
-        this.data.email = ''
-        this.data.birth_date = ''
-        this.data.gender = ''
-        this.data.cell_phone = ''
-        this.data.curriculum_vitae = ''
-        this.show = false
-        this.$nextTick(() => { this.show = true })
+          })
       }
     }
   }

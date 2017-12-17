@@ -2,6 +2,9 @@
   <div class="">
     <h3>Candidatos <small>Lista de candidatos</small></h3>
 
+    <b-button variant="primary"
+      :to="{name: 'candidate.create' }">Novo</b-button>
+
     <div class="table-responsive">
       <table class="table table-striped secondary">
         <thead class="bg-secondary">
@@ -85,4 +88,7 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   /**/
+  table-responsive {
+    min-height: 600px
+  }
 </style>

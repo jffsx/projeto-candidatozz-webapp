@@ -3,7 +3,7 @@
     <h3>Candidatos <small>Novo candidato</small></h3>
 
     <b-col cols="6">
-      <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+      <b-form @submit="onSubmit">
         <b-form-group id="first_name" label="Nome:" label-for="first_name"
           description="">
 
@@ -53,10 +53,10 @@
 
         <b-form-file id="curriculum_vitae" v-model="data.curriculum_vitae"
           choose-label="Currículo"></b-form-file>
-          <br> Currículo selecionado: {{data.curriculum_vitae && data.curriculum_vitae.name}}<br><br>
 
-        <b-button type="submit" variant="primary">Enviar</b-button>
-        <b-button type="reset" variant="danger">Apagar</b-button>
+        <b-button variant="link"
+          :to="{name: 'candidate.index' }">Voltar</b-button>
+      <b-button type="submit" variant="primary">Enviar</b-button>
       </b-form>
     </b-col>
   </div>
@@ -82,8 +82,7 @@
           { value: '', text: 'Selecione' },
           { value: 'male', text: 'Masculino' },
           { value: 'female', text: 'Feminino' }
-        ],
-        show: true
+        ]
       }
     },
 
@@ -103,20 +102,6 @@
           }).catch(response => {
 
           })
-      },
-
-      onReset (evt) {
-        evt.preventDefault()
-
-        this.data.first_name = ''
-        this.data.last_name = ''
-        this.data.email = ''
-        this.data.birth_date = ''
-        this.data.gender = ''
-        this.data.cell_phone = ''
-        this.data.curriculum_vitae = ''
-        this.show = false
-        this.$nextTick(() => { this.show = true })
       }
     }
   }
