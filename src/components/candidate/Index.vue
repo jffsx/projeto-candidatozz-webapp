@@ -75,20 +75,21 @@
       destroy (id) {
         this.$http.delete(API_URL + '/candidates/' + id)
         .then(response => {
-          console.log('response delete', response.body)
-          this.$router.go({name: 'CandidateIndex', force: true})
+          let processed = this.processResponse(response)
+          this.$toastr('success', processed.message)
+          this.$router.push({name: 'candidate.index', force: true})
         }).catch(response => {
-          console.log('response delete error', response.body)
+          let processed = this.processResponse(response)
+          this.$toastr('error', processed.message)
         })
       }
     }
   }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   /**/
   table-responsive {
-    min-height: 600px
+    min-height: 300px
   }
 </style>

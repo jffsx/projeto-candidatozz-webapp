@@ -21,6 +21,9 @@
   }
 </script>
 
+<style src="bootstrap/dist/css/bootstrap.css"></style>
+<style src="bootstrap-vue/dist/bootstrap-vue.css"></style>
+
 <style>
   /**/
 </style>

@@ -98,19 +98,17 @@
 
         let formData = new FormData()
 
-        console.log(this.data)
-
         for (let key in this.data) {
           formData.append(key, this.data[key])
         }
 
-        console.log(formData)
-
         this.$http.put(API_URL + '/candidates/' + this.data.id, formData)
           .then(response => {
-
+            let processed = this.processResponse(response)
+            this.$toastr('success', processed.message)
           }).catch(response => {
-
+            let processed = this.processResponse(response)
+            this.$toastr('error', processed.message)
           })
       },
 
@@ -119,13 +117,13 @@
           .then(response => {
             this.data = response.body
           }).catch(response => {
-
+            let processed = this.processResponse(response)
+            this.$toastr('error', processed.message)
           })
       }
     }
   }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 </style>

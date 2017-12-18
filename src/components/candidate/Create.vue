@@ -98,15 +98,17 @@
 
         this.$http.post(API_URL + '/candidates', formData)
           .then(response => {
-
+            let processed = this.processResponse(response)
+            this.$toastr('success', processed.message)
+            this.$router.push({name: 'candidate.index'})
           }).catch(response => {
-
+            let processed = this.processResponse(response)
+            this.$toastr('error', processed.message)
           })
       }
     }
   }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 </style>
