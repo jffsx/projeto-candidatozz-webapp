@@ -102,7 +102,7 @@
           formData.append(key, this.data[key])
         }
 
-        this.$http.put(API_URL + '/candidates/' + this.data.id, formData)
+        this.$http.put(API_URL + '/api/v1/candidates/' + this.data.id, formData)
           .then(response => {
             let processed = this.processResponse(response)
             this.$toastr('success', processed.message)
@@ -113,7 +113,7 @@
       },
 
       getData () {
-        this.$http.get(API_URL + '/candidates/' + this.data.id)
+        this.$http.get(API_URL + '/api/v1/candidates/' + this.data.id)
           .then(response => {
             this.data = response.body
           }).catch(response => {

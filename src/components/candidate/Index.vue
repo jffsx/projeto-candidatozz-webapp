@@ -63,7 +63,7 @@
     name: 'CandidateIndex',
     data () {
       return {
-        resource_url: API_URL + '/candidates',
+        resource_url: API_URL + '/api/v1/candidates',
         candidates: []
       }
     },

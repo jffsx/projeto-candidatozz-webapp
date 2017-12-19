@@ -96,7 +96,7 @@
           formData.append(key, this.data[key])
         }
 
-        this.$http.post(API_URL + '/candidates', formData)
+        this.$http.post(API_URL + '/api/v1/candidates', formData)
           .then(response => {
             let processed = this.processResponse(response)
             this.$toastr('success', processed.message)

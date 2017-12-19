@@ -8,6 +8,7 @@ import VueResource from 'vue-resource'
 import VueToastr from '@deveodk/vue-toastr'
 import '@deveodk/vue-toastr/dist/@deveodk/vue-toastr.css'
 import ProcessResponse from './components/mixins/processResponse.js'
+import store from './components/store/Store'
 
 Vue.config.productionTip = false
 
@@ -18,7 +19,13 @@ Vue.use(VueToastr, { defaultPosition: 'toast-top-right', defaultType: 'info', de
 Vue.mixin({ ProcessResponse })
 
 Vue.http.interceptors.push((request, next) => {
+  const authUser = JSON.parse(window.localStorage.getItem('authUser'))
+
   request.headers.set('Accept', 'application/json')
+  if (authUser != null) {
+    request.headers.set('Authorization', 'Bearer ' + authUser.token.access)
+  }
+
   next()
 })
 
@@ -26,6 +33,7 @@ Vue.http.interceptors.push((request, next) => {
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App },
   http: {
