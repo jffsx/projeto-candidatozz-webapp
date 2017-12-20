@@ -120,7 +120,7 @@
       getData () {
         this.$http.get(API_URL + '/api/v1/candidates/' + this.data.id)
           .then(response => {
-            this.data = response.body
+            this.data = response.body.data
           }).catch(response => {
             let processed = this.processResponse(response)
             this.$toastr('error', processed.message)

@@ -71,19 +71,21 @@
 
               this.$http.get(API_URL + '/api/v1/users/me', {headers: getHeader()})
                 .then(response => {
-                  auth.user = response.body
+                  auth.user = response.body.data
                   window.localStorage.setItem('authUser', JSON.stringify(auth))
 
                   this.$store.dispatch('setUser', auth)
                   this.$router.push({name: 'dashboard'})
                 })
                 .catch(response => {
-                  this.$root.$refs.toastr.e(response.data.message)
+                  let processed = this.processResponse(response)
+                  this.$toastr('error', processed.message)
                 })
             }
           })
           .catch(response => {
-            this.$root.$refs.toastr.e(response.data.message)
+            let processed = this.processResponse(response)
+            this.$toastr('error', processed.message)
           })
       }
     }
