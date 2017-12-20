@@ -39,7 +39,7 @@
           description="">
 
           <b-form-input id="birth_date" type="text" v-model="data.birth_date"
-            placeholder="Digite sua data de nascimento">
+            v-mask="'##/##/####'" placeholder="Digite sua data de nascimento">
           </b-form-input>
         </b-form-group>
 
@@ -47,7 +47,7 @@
           description="">
 
           <b-form-input id="cell_phone" type="text" v-model="data.cell_phone"
-            placeholder="Digite seu número de celular">
+            v-mask="['(##) ####-####', '(##) #####-####']" placeholder="Digite seu número de celular">
           </b-form-input>
         </b-form-group>
 
@@ -64,9 +64,13 @@
 
 <script>
   import {API_URL} from '@/env'
+  import {mask} from 'vue-the-mask'
 
   export default {
     name: 'CandidateCreate',
+    directives: {
+      mask
+    },
     data () {
       return {
         data: {

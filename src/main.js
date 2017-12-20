@@ -29,6 +29,8 @@ Vue.http.interceptors.push((request, next) => {
   next()
 })
 
+Vue.http.options.emulateJSON = true
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

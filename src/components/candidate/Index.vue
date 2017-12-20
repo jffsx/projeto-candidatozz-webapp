@@ -15,7 +15,7 @@
             <th>E-mail</th>
             <th nowrap>Data de nascimento</th>
             <th>Sexo</th>
-            <th>Telefone</th>
+            <th nowrap>Celular</th>
             <th nowrap>Criado em</th>
             <th nowrap>Atualizado em</th>
             <th nowrap></th>
@@ -29,7 +29,7 @@
             <td nowrap>{{ candidate.email }}</td>
             <td>{{ candidate.birth_date }}</td>
             <td>{{ candidate.gender }}</td>
-            <td>{{ candidate.cell_phone }}</td>
+            <td nowrap>{{ candidate.cell_phone }}</td>
             <td nowrap>{{ candidate.created_at }}</td>
             <td nowrap>{{ candidate.updated_at }}</td>
             <td nowrap>
