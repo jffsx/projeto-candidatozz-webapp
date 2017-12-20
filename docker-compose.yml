@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  dev:
+    image: ambientum/node:8
+    container_name: candidatozz-vue-dev
+    command: npm run dev
+    volumes:
+      - .:/var/www/app
+    ports:
+      - 8080:8080
