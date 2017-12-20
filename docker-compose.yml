@@ -3,8 +3,8 @@ version: '2'
 services:
   dev:
     image: ambientum/node:8
-    container_name: candidatozz-vue-dev
-    command: npm run dev
+    container_name: candidatozz-webapp
+    command: npm run candidatozz-up
     volumes:
       - .:/var/www/app
     ports:

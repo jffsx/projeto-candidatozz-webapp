@@ -10,7 +10,8 @@
     "build": "node build/build.js",
     "e2e": "node test/e2e/runner.js",
     "test": "npm run e2e",
-    "lint": "eslint --ext .js,.vue src test/e2e/specs"
+    "lint": "eslint --ext .js,.vue src test/e2e/specs",
+    "candidatozz-up": "npm install && npm run dev"
   },
   "dependencies": {
     "@deveodk/vue-toastr": "^1.0.4",
