@@ -39,23 +39,27 @@
           description="">
 
           <b-form-input id="birth_date" type="text" v-model="data.birth_date"
-            placeholder="Digite sua data de nascimento">
+            v-mask="'##/##/####'" placeholder="Digite sua data de nascimento">
           </b-form-input>
+
+          <p>{{ data.age }} anos</p>
         </b-form-group>
 
         <b-form-group id="cell_phone" label="Número de celular:" label-for="cell_phone"
           description="">
 
           <b-form-input id="cell_phone" type="text" v-model="data.cell_phone"
-            placeholder="Digite seu número de celular">
+            v-mask="['(##) ####-####', '(##) #####-####']" placeholder="Digite seu número de celular">
           </b-form-input>
         </b-form-group>
 
         <b-form-file id="curriculum_vitae" v-model="data.curriculum_vitae"
           choose-label="Currículo"></b-form-file>
 
-        <b-button variant="link"
-          :to="{name: 'candidate.index' }">Voltar</b-button>
+        <b-button variant="link" v-if="data.has_curriculum_vitae"
+          v-on:click="download()">Baixar currículo</b-button>
+
+        <b-button variant="link" :to="{name: 'candidate.index' }">Voltar</b-button>
         <b-button type="submit" variant="primary">Enviar</b-button>
       </b-form>
     </b-col>
@@ -64,9 +68,13 @@
 
 <script>
   import {API_URL} from '@/env'
+  import {mask} from 'vue-the-mask'
 
   export default {
     name: 'CandidateEdit',
+    directives: {
+      mask
+    },
     data () {
       return {
         data: {
@@ -75,9 +83,11 @@
           last_name: '',
           email: '',
           birth_date: '',
+          age: '',
           gender: '',
           cell_phone: '',
-          curriculum_vitae: ''
+          curriculum_vitae: '',
+          has_curriculum_vitae: false
         },
         genders: [
           { value: '', text: 'Selecione' },
@@ -97,12 +107,13 @@
         evt.preventDefault()
 
         let formData = new FormData()
+        formData.append('_method', 'PUT')
 
         for (let key in this.data) {
           formData.append(key, this.data[key])
         }
 
-        this.$http.put(API_URL + '/api/v1/candidates/' + this.data.id, formData)
+        this.$http.post(API_URL + '/api/v1/candidates/' + this.data.id, formData)
           .then(response => {
             let processed = this.processResponse(response)
             this.$toastr('success', processed.message)
@@ -115,7 +126,18 @@
       getData () {
         this.$http.get(API_URL + '/api/v1/candidates/' + this.data.id)
           .then(response => {
-            this.data = response.body
+            this.data = response.body.data
+          }).catch(response => {
+            let processed = this.processResponse(response)
+            this.$toastr('error', processed.message)
+          })
+      },
+
+      download () {
+        this.$http.get(API_URL + '/api/v1/candidates/' + this.data.id + '/curriculum-download')
+          .then(response => {
+            let processed = this.processResponse(response)
+            this.$toastr('error', processed.message)
           }).catch(response => {
             let processed = this.processResponse(response)
             this.$toastr('error', processed.message)
