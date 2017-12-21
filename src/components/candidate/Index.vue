@@ -36,6 +36,8 @@
               <b-dropdown id="actions" text="Ações" size="sm" variant="outline-secondary">
                 <b-dropdown-item :to="{name: 'candidate.edit', params: { id: candidate.id } }">Editar</b-dropdown-item>
                 <b-dropdown-item :to="{name: 'candidate.show', params: { id: candidate.id } }">Visualizar</b-dropdown-item>
+                <b-dropdown-item v-on:click="download(candidate.id)"
+                  v-if="candidate.has_curriculum_vitae">Download currículo</b-dropdown-item>
                 <b-dropdown-divider></b-dropdown-divider>
                 <b-dropdown-item v-on:click="destroy(candidate.id)">Deletar</b-dropdown-item>
               </b-dropdown>
@@ -82,6 +84,17 @@
           let processed = this.processResponse(response)
           this.$toastr('error', processed.message)
         })
+      },
+
+      download (id) {
+        this.$http.get(API_URL + '/api/v1/candidates/' + id + '/curriculum-download')
+          .then(response => {
+            let processed = this.processResponse(response)
+            this.$toastr('error', processed.message)
+          }).catch(response => {
+            let processed = this.processResponse(response)
+            this.$toastr('error', processed.message)
+          })
       }
     }
   }

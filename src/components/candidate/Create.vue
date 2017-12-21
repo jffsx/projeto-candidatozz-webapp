@@ -80,7 +80,8 @@
           birth_date: '',
           gender: '',
           cell_phone: '',
-          curriculum_vitae: ''
+          curriculum_vitae: '',
+          has_curriculum_vitae: false
         },
         genders: [
           { value: '', text: 'Selecione' },

@@ -41,6 +41,8 @@
           <b-form-input id="birth_date" type="text" v-model="data.birth_date"
             v-mask="'##/##/####'" placeholder="Digite sua data de nascimento">
           </b-form-input>
+
+          <p>{{ data.age }} anos</p>
         </b-form-group>
 
         <b-form-group id="cell_phone" label="Número de celular:" label-for="cell_phone"
@@ -54,8 +56,10 @@
         <b-form-file id="curriculum_vitae" v-model="data.curriculum_vitae"
           choose-label="Currículo"></b-form-file>
 
-        <b-button variant="link"
-          :to="{name: 'candidate.index' }">Voltar</b-button>
+        <b-button variant="link" v-if="data.has_curriculum_vitae"
+          v-on:click="download()">Baixar currículo</b-button>
+
+        <b-button variant="link" :to="{name: 'candidate.index' }">Voltar</b-button>
         <b-button type="submit" variant="primary">Enviar</b-button>
       </b-form>
     </b-col>
@@ -79,9 +83,11 @@
           last_name: '',
           email: '',
           birth_date: '',
+          age: '',
           gender: '',
           cell_phone: '',
-          curriculum_vitae: ''
+          curriculum_vitae: '',
+          has_curriculum_vitae: false
         },
         genders: [
           { value: '', text: 'Selecione' },
@@ -121,6 +127,17 @@
         this.$http.get(API_URL + '/api/v1/candidates/' + this.data.id)
           .then(response => {
             this.data = response.body.data
+          }).catch(response => {
+            let processed = this.processResponse(response)
+            this.$toastr('error', processed.message)
+          })
+      },
+
+      download () {
+        this.$http.get(API_URL + '/api/v1/candidates/' + this.data.id + '/curriculum-download')
+          .then(response => {
+            let processed = this.processResponse(response)
+            this.$toastr('error', processed.message)
           }).catch(response => {
             let processed = this.processResponse(response)
             this.$toastr('error', processed.message)
