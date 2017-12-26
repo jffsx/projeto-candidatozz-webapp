@@ -75,11 +75,11 @@
       },
 
       destroy (id) {
-        this.$http.delete(API_URL + '/candidates/' + id)
+        this.$http.delete(API_URL + '/api/v1/candidates/' + id)
         .then(response => {
           let processed = this.processResponse(response)
           this.$toastr('success', processed.message)
-          this.$router.push({name: 'candidate.index', force: true})
+          this.$router.go({name: 'candidate.index', force: true})
         }).catch(response => {
           let processed = this.processResponse(response)
           this.$toastr('error', processed.message)
