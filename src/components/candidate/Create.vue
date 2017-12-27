@@ -105,7 +105,7 @@
           .then(response => {
             let processed = this.processResponse(response)
             this.$toastr('success', processed.message)
-            this.$router.push({name: 'candidate.index'})
+            this.$router.go({name: 'candidate.index', force: true})
           }).catch(response => {
             let processed = this.processResponse(response)
             this.$toastr('error', processed.message)

@@ -4,6 +4,7 @@
     <b-container >
       <router-view></router-view>
     </b-container>
+    <app-footer></app-footer>
   </div>
 </template>
 

@@ -7,14 +7,16 @@ import BootstrapVue from 'bootstrap-vue'
 import VueResource from 'vue-resource'
 import VueToastr from '@deveodk/vue-toastr'
 import '@deveodk/vue-toastr/dist/@deveodk/vue-toastr.css'
-import ProcessResponse from './components/mixins/processResponse.js'
+import ProcessResponse from './components/mixins/processResponse'
 import store from './components/store/Store'
+import Acl from './services/Acl'
 
 Vue.config.productionTip = false
 
 Vue.use(BootstrapVue)
 Vue.use(VueResource)
 Vue.use(VueToastr, { defaultPosition: 'toast-top-right', defaultType: 'info', defaultTimeout: 6000 })
+Vue.use(Acl, { router: router, fail: '/unauthorized' })
 
 Vue.mixin({ ProcessResponse })
 

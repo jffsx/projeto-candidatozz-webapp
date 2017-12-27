@@ -75,7 +75,7 @@
                   window.localStorage.setItem('authUser', JSON.stringify(auth))
 
                   this.$store.dispatch('setUser', auth)
-                  this.$router.push({name: 'dashboard'})
+                  this.$router.go({name: 'dashboard'})
                 })
                 .catch(response => {
                   let processed = this.processResponse(response)
