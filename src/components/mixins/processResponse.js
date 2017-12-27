@@ -1,8 +1,13 @@
 import Vue from 'vue'
+import router from '@/router'
 
 Vue.mixin({
   methods: {
     processResponse: response => {
+      if (response.status === 403) {
+        router.push({name: 'unauthorized'})
+      }
+
       if (response.status === 422) {
         let message = ''
 

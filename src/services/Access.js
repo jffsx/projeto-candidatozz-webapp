@@ -15,7 +15,7 @@ export default {
     let result = false
 
     for (var k in authUser.user.roles.data) {
-      if (authUser.user.roles.data[k].code === role || authUser.user.roles.data[k].all === true) {
+      if (authUser.user.roles.data[k].code === role || authUser.user.is_admin === true) {
         result = true
       }
     }
