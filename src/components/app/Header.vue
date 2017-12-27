@@ -19,7 +19,7 @@
 
           <b-nav-item-dropdown right>
             <template slot="button-content">
-              <em>{{ userStore.authUser.user.first_name }}</em>
+              <em>{{ userStore.authUser.user.full_name }}</em>
             </template>
             <b-dropdown-item v-on:click="logout()">Sair</b-dropdown-item>
           </b-nav-item-dropdown>
