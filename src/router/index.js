@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Dashboard from '@/components/Dashboard'
 import Login from '@/components/Login'
 import NotFound from '@/components/app/NotFound'
+import Unauthorized from '@/components/app/Unauthorized'
 
 import Authenticate from '@/middlewares/Authenticate'
 import Guest from '@/middlewares/Guest'
@@ -24,6 +25,7 @@ export default new Router({
     {path: '/candidates/create', name: 'candidate.create', component: CandidateCreate, beforeEnter: Authenticate},
     {path: '/candidates/:id/edit', name: 'candidate.edit', component: CandidateEdit, beforeEnter: Authenticate},
     {path: '/candidates/:id/show', name: 'candidate.show', component: CandidateShow, beforeEnter: Authenticate},
+    { path: '/unauthorized', name: 'unauthorized', component: Unauthorized },
     { path: '*', component: NotFound }
   ]
 })

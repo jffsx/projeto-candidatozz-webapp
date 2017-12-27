@@ -37,10 +37,13 @@ export default {
       pageUrl = pageUrl || this.resource_url
 
       this.$http.get(pageUrl)
-        .then(function (response) {
+        .then(response => {
           this.pagination = response.body.meta.pagination
 
           this.$emit('update', response.body.data)
+        }).catch(response => {
+          let processed = this.processResponse(response)
+          this.$toastr('error', processed.message)
         })
     }
   },
