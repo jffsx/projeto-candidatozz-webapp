@@ -24,14 +24,9 @@ npm run dev
 # build for production with minification
 npm run build
 
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
+# usuário | senha
+user@admin.com | 1234
+user@candidate.com | 1234
 ```
 
 # Docker
@@ -54,4 +49,8 @@ cp src/env.example.js src/env.js
 
 # inicia a aplicação com as configurações definidas no docker-compose.yml
 docker-compose up -d
+
+# usuário | senha
+user@admin.com | 1234
+user@candidate.com | 1234
 ```
