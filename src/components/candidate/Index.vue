@@ -28,7 +28,7 @@
             <td>{{ candidate.last_name }}</td>
             <td nowrap>{{ candidate.email }}</td>
             <td>{{ candidate.birth_date }}</td>
-            <td>{{ candidate.gender }}</td>
+            <td>{{ candidate.gender_name }}</td>
             <td nowrap>{{ candidate.cell_phone }}</td>
             <td nowrap>{{ candidate.created_at }}</td>
             <td nowrap>{{ candidate.updated_at }}</td>
